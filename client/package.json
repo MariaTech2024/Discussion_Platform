@@ -21,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "https://discussion-platform-one.vercel.app",
   "eslintConfig": {
     "extends": [
       "react-app",
