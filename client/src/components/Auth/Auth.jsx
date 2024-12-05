@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
 const Auth = () => {
+  const url_api = "https://discussion-platform-one.vercel.app";
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -16,8 +17,8 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
     const url = isLogin
-      ? 'http://localhost:5000/api/users/login'
-      : 'http://localhost:5000/api/users/register';
+      ? `${url_api}/api/users/login`
+      : `${url_api}/api/users/register`;
 
     try {
       const response = await axios.post(url, {

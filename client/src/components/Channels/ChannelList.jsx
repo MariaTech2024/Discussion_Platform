@@ -5,6 +5,7 @@ import './ChannelList.css';
 
 
 const ChannelList = () => {
+    const url = "https://discussion-platform-one.vercel.app";
     const [channels, setChannels] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [newChannel, setNewChannel] = useState('');
@@ -16,7 +17,7 @@ const ChannelList = () => {
     useEffect(() => {
         const fetchChannels = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/channels');
+                const response = await axios.get(`${url}/api/channels`);
                 setChannels(response.data);
             } catch (err) {
                 console.error('Error fetching channels:', err);
@@ -44,7 +45,7 @@ const ChannelList = () => {
 
         try {
             
-            const response = await axios.post('http://localhost:5000/api/channels', {
+            const response = await axios.post(`${url}/api/channels`, {
                 name: newChannel,
                 description: newChannelDescription,
             });

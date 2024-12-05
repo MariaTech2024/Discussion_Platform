@@ -8,6 +8,7 @@ import chattingIcon from "../../assets/chatting.png";
 import "./PostList.css";
 
 const PostList = () => {
+  const url = "https://discussion-platform-one.vercel.app";
   const { channelId } = useParams(); 
   const { id } = useParams();
   const [channelName, setChannelName] = useState("");
@@ -36,7 +37,7 @@ const [showReplies, setShowReplies] = useState({});
   
     const fetchChannel = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/channels/${channelId}`);
+        const response = await fetch(`${url}/api/channels/${channelId}`);
         const data = await response.json();
        
         if (data && data.name) {
@@ -53,7 +54,7 @@ const [showReplies, setShowReplies] = useState({});
   
     const fetchPostsAndComments = async () => {
       try {
-        const postsResponse = await axios.get(`http://localhost:5000/api/posts/${channelId}`);
+        const postsResponse = await axios.get(`${url}/api/posts/${channelId}`);
         const postsWithLikes = postsResponse.data.map((post) => ({
           ...post,
           likes: post.likes != null && !isNaN(post.likes) ? post.likes : 0,
@@ -61,7 +62,7 @@ const [showReplies, setShowReplies] = useState({});
         setPosts(postsWithLikes);
   
         const commentsPromises = postsResponse.data.map(async (post) => {
-          const commentsResponse = await axios.get(`http://localhost:5000/api/comments/${post.id}`);
+          const commentsResponse = await axios.get(`${url}/api/comments/${post.id}`);
           return { postId: post.id, comments: commentsResponse.data };
         });
   
@@ -94,7 +95,7 @@ const [showReplies, setShowReplies] = useState({});
       }
   
       const response = await axios.post(
-        `http://localhost:5000/api/posts/${channelId}`,
+        `${url}/api/posts/${channelId}`,
         { userId, body: newPostBody }
       );
       setPosts([response.data, ...posts]);
@@ -117,7 +118,7 @@ console.log('Creating post with userId:', userId);
       }
   
       const response = await axios.post(
-        `http://localhost:5000/api/comments/${postId}`,
+        `${url}/api/comments/${postId}`,
         { body, userId }
       );
       setComments({
@@ -132,7 +133,7 @@ console.log('Creating post with userId:', userId);
 
   const handleDeleteComment = async (commentId, postId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/comments/${commentId}`);
+      await axios.delete(`${url}/api/comments/${commentId}`);
       setComments({
         ...comments,
         [postId]: comments[postId].filter(
@@ -146,7 +147,7 @@ console.log('Creating post with userId:', userId);
 
   const fetchReplies = async (commentId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/replies/${commentId}`);
+      const response = await axios.get(`${url}/api/replies/${commentId}`);
       setReplies((prevReplies) => ({
         ...prevReplies,
         [commentId]: response.data,
@@ -163,7 +164,7 @@ console.log('Creating post with userId:', userId);
   
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/replies/${commentId}`,
+        `${url}/api/replies/${commentId}`,
         { body, userId: 1 } 
       );
   

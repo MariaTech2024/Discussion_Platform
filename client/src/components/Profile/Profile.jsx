@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  const url = "https://discussion-platform-one.vercel.app";
   const [user, setUser] = useState(null);
   const [profilePicture, setProfilePicture] = useState(
     localStorage.getItem('profilePicture') || null
@@ -18,7 +19,7 @@ const Profile = () => {
         navigate('/auth');
       } else {
         try {
-          const response = await axios.get('http://localhost:5000/api/users/profile', {
+          const response = await axios.get(`${url}/api/users/profile`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
