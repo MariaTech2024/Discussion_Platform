@@ -3,41 +3,40 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
   const [profilePicture, setProfilePicture] = useState(
     localStorage.getItem('profilePicture') || null
-  ); 
-  const [loading, setLoading] = useState(true); 
-  const [error, setError] = useState(''); 
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-   
     const fetchProfile = async () => {
-      const token = localStorage.getItem('token'); 
+      const token = localStorage.getItem('token');
       if (!token) {
-        navigate('/auth'); 
+        navigate('/auth');
       } else {
         try {
           const response = await axios.get('http://localhost:5000/api/users/profile', {
             headers: {
-              Authorization: `Bearer ${token}`, 
+              Authorization: `Bearer ${token}`,
             },
           });
-          setUser(response.data); 
+          setUser(response.data);
         } catch (err) {
           setError('Failed to fetch profile. Please log in again.');
         } finally {
-          setLoading(false); 
+          setLoading(false);
         }
       }
     };
 
-    fetchProfile(); 
+    fetchProfile();
   }, [navigate]);
 
   const handleProfilePictureChange = (event) => {
-    const file = event.target.files[0]; 
+    const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -49,9 +48,9 @@ const Profile = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>; 
+  if (loading) return <div>Loading...</div>;
 
-  if (error) return <div>{error}</div>; 
+  if (error) return <div>{error}</div>;
 
   return (
     <div>

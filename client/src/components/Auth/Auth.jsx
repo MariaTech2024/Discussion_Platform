@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(false); 
+  const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,74 +22,84 @@ const Auth = () => {
     try {
       const response = await axios.post(url, {
         username,
-        email: isLogin ? undefined : email, 
+        email: isLogin ? undefined : email,
         password,
       });
 
-      // On successful login/registration, store the JWT token in localStorage
       if (isLogin) {
         localStorage.setItem('token', response.data.token);
-        navigate('/channels'); 
+        navigate('/channels');
       } else {
-        
         setIsLogin(true);
         setErrorMessage('Registration successful! Please login.');
-       
         setUsername('');
         setEmail('');
         setPassword('');
       }
     } catch (error) {
-      
       setErrorMessage(error.response?.data?.error || 'An error occurred');
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="auth-container">
+  <div className="auth-card">
+    <div className="auth-left">
+      <h2>Welcome to the discussion platform!</h2>
+      <p>Here, you can ask questions, seek advice, and share your knowledge.
+            Get answers to your queries, explore a wide range of topics, and
+            contribute to a pool of collective knowledge.</p>
+    </div>
+    <div className="auth-right">
       <h2>{isLogin ? 'Login' : 'Register'}</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
+        <input
+          className="auth-input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
         {!isLogin && (
-          <div>
-            <input
-  type="email"
-  placeholder="Email"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-  required
-  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-/>
-          </div>
-        )}
-        <div>
           <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            className="auth-input"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <button type="submit" disabled={loading}>
+        )}
+        <input
+          className="auth-input"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button className="auth-button" type="submit" disabled={loading}>
           {loading ? 'Loading...' : isLogin ? 'Login' : 'Register'}
         </button>
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
-      <p onClick={() => setIsLogin(!isLogin)} style={{ cursor: 'pointer', color: 'blue' }}>
-        {isLogin ? "Don't have an account? Register here" : 'Already have an account? Login here'}
-      </p>
+      <p className="toggle-auth" onClick={() => setIsLogin(!isLogin)}>
+  {isLogin ? (
+    <>
+      Don't have an account? <span className="highlight">Register here</span>
+    </>
+  ) : (
+    <>
+      Already have an account? <span className="highlight">Login here</span>
+    </>
+  )}
+</p>
     </div>
+  </div>
+</div>
   );
 };
 

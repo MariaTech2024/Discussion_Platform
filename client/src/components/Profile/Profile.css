@@ -73,3 +73,47 @@
     background: #0056b3;
 }
 
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .profile {
+        padding: 15px;
+        max-width: 90%; /* Adjust width for smaller screens */
+    }
+
+    .profile__avatar-img {
+        width: 80px; /* Slightly smaller avatar image */
+        height: 80px;
+    }
+
+    .profile__field input,
+    .profile__field p {
+        padding: 8px; /* Reduce padding for smaller screens */
+    }
+
+    .profile__button {
+        padding: 8px 16px; /* Adjust button size */
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .profile {
+        padding: 10px;
+        max-width: 95%; /* Full width on very small screens */
+    }
+        .profile__avatar-img {
+            width: 90px; /* Adjust the profile picture size for small screens */
+            height: 90px; /* Ensure the profile picture is visible */
+        }
+    
+        .profile__field input,
+        .profile__field p {
+            padding: 6px;
+        }
+    
+        .profile__button {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+    }

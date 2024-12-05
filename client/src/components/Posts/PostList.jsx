@@ -210,7 +210,7 @@ const [showReplies, setShowReplies] = useState({});
   <div className="search-wrapper">
     <input
       type="text"
-      placeholder="Search posts..."
+      placeholder="Search for questions and answers..."
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
     />
@@ -220,10 +220,10 @@ const [showReplies, setShowReplies] = useState({});
     <textarea
       value={newPostBody}
       onChange={(e) => setNewPostBody(e.target.value)}
-      placeholder="Write a new post..."
+      placeholder="Write a new question..."
       required
     />
-    <button type="submit">Create Post</button>
+    <button type="submit">Create Question</button>
   </form>
 
   <div className="post-card-container">

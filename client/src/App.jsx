@@ -17,7 +17,6 @@ const App = () => {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/channels" element={<ChannelList />} />
                     <Route path="/channel/:channelId" element={<PostList />} />
-                    <Route path="/logout" element={<h1>Logging out...</h1>} />
                 </Routes>
             </div>
         </div>
