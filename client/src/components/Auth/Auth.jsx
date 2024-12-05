@@ -28,6 +28,8 @@ const Auth = () => {
 
       if (isLogin) {
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userId', response.data.user.id);
+        console.log('User ID saved:', response.data.user.id);
         navigate('/channels');
       } else {
         setIsLogin(true);

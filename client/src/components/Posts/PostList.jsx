@@ -85,9 +85,14 @@ const [showReplies, setShowReplies] = useState({});
   const handleCreatePost = async (e) => {
     e.preventDefault();
     if (!newPostBody) return;
-
+  
     try {
-      const userId = 1; 
+      const userId = localStorage.getItem('userId'); // Get userId from localStorage
+      if (!userId) {
+        console.error('User is not logged in');
+        return;
+      }
+  
       const response = await axios.post(
         `http://localhost:5000/api/posts/${channelId}`,
         { userId, body: newPostBody }
@@ -98,17 +103,23 @@ const [showReplies, setShowReplies] = useState({});
       console.error("Error creating post", error);
     }
   };
-
+  
   const handleAddComment = async (postId) => {
     const body = newCommentBody[postId];
-
     if (!body) return;
-
+  
     try {
+      const userId = localStorage.getItem('userId');
+console.log('Creating post with userId:', userId);
+      if (!userId) {
+        console.error('User is not logged in');
+        return;
+      }
+  
       const response = await axios.post(
         `http://localhost:5000/api/comments/${postId}`,
-        { body, userId: 1 }
-      ); 
+        { body, userId }
+      );
       setComments({
         ...comments,
         [postId]: [response.data, ...comments[postId]],
