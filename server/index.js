@@ -23,7 +23,7 @@ const io = new Server(server, {
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://chat-app-swart-zeta.vercel.app',
     credentials: true,   
   }));
 
