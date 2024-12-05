@@ -68,13 +68,24 @@ const Profile = () => {
       <p><strong>Username:</strong> {user?.username}</p>
       <p><strong>Email:</strong> {user?.email}</p>
       <button
-        onClick={() => {
-          localStorage.removeItem('token');
-          navigate('/auth');
-        }}
-      >
-        Logout
-      </button>
+  onClick={() => {
+    localStorage.removeItem('token');
+    navigate('/auth');
+  }}
+  style={{
+    backgroundColor: ' #1b3d74', 
+    color: 'white', 
+    border: 'none', 
+    padding: '8px 15px', 
+    fontSize: '14px', 
+    borderRadius: '5px', 
+    cursor: 'pointer', 
+    transition: 'background-color 0.3s ease',
+    textAlign: 'center'
+  }}
+>
+  Logout
+</button>
     </div>
   );
 };
